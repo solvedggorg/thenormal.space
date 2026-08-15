@@ -17,7 +17,7 @@
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             nodejs_22
-            terraform
+            #terraform
           ];
 
           shellHook = ''

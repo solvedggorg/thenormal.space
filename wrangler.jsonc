@@ -1,12 +1,37 @@
 {
 	"$schema": "./node_modules/wrangler/config-schema.json",
 	"account_id": "97b0dab10c55d2e8a6c952eb4e4914ac",
+	"hyperdrive": [
+	  {
+			"binding": "thenormal",
+			"id": "08f9a55fee074c01ae2df56c39bb8741",
+			// Password: .env NEON_DB_PASSWORD via CLOUDFLARE_HYPERDRIVE_LOCAL_CONNECTION_STRING_thenormal
+			"localConnectionString": "postgresql://neondb_owner:${NEON_DB_PASSWORD}@ep-spring-poetry-ayi2y76j.c-5.us-east-2.aws.neon.tech/neondb?sslmode=require"
+			}
+	],
 	"compatibility_date": "2026-08-14",
 	"compatibility_flags": ["global_fetch_strictly_public"],
 	"name": "thenormal-space",
 	"main": "src/cloudflare-worker.ts",
-	"workers_dev": true,
-	"preview_urls": true,
+	"build": {
+		"command": "bun run build"
+	},
+	"workers_dev": false,
+	"preview_urls": false,
+	"access": {},
+	"flagship": [
+      {
+        "app_id": "a7890609-0ce2-4894-a9cd-e0adc0712dd9",
+        "binding": "thenormal-space",
+        "remote": true
+      }
+	],
+	"env": {},
+	"streaming_tail_consumers": [],
+	"cache": {
+	    "cross_version_cache": false,
+			"enabled": false
+	},
 	"routes": [
 		{
 			"pattern": "thenormal.space",
@@ -22,6 +47,12 @@
 		{ "service": "thenormal-stats-tail" }
 	],
 	"observability": {
+	  "traces": {
+			"enabled": true,
+			"destinations": [],
+			"head_sampling_rate": 0,
+			"persist": true
+			},
 		"enabled": true,
 		"logs": { "head_sampling_rate": 1, "invocation_logs": true }
 	}
