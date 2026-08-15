@@ -24,7 +24,8 @@ jobs:
         with:
           terraform_version: "1.11.4"
           terraform_wrapper: false
-      - name: Apply
+      - id: out
+        name: Apply
         working-directory: infra
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -35,12 +36,6 @@ jobs:
         run: |
           terraform init -input=false
           terraform apply -input=false -auto-approve
-      - id: out
-        name: Bindings
-        working-directory: infra
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-        run: |
           {
             echo "bindings<<EOF"
             terraform output -json wrangler_bindings

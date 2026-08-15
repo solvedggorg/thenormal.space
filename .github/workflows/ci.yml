@@ -32,8 +32,10 @@ jobs:
           (cd api && bun install)
           (cd auth && bun install)
           (cd store && bun install)
+          (cd stats && bun install)
+          (cd store/backend && npm ci)
       - name: Test
-        run: bun test src api/test store/src auth/test
+        run: bun test src api/test store/src store/scripts auth/test ./stats scripts
 
   terraform:
     name: Terraform
