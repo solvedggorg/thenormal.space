@@ -13,19 +13,20 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  terraform:
-    name: Terraform
+  deploy:
+    name: Terraform, Workers, and container
     runs-on: ubuntu-latest
-    outputs:
-      bindings: ${{ steps.out.outputs.bindings }}
     steps:
       - uses: actions/checkout@v4
       - uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: "1.11.4"
           terraform_wrapper: false
-      - id: out
-        name: Apply
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: oven-sh/setup-bun@v2
+      - name: Terraform apply
         working-directory: infra
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -36,22 +37,7 @@ jobs:
         run: |
           terraform init -input=false
           terraform apply -input=false -auto-approve
-          {
-            echo "bindings<<EOF"
-            terraform output -json wrangler_bindings
-            echo "EOF"
-          } >> "$GITHUB_OUTPUT"
-
-  workers:
-    name: Workers and container
-    needs: terraform
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-      - uses: oven-sh/setup-bun@v2
+          terraform output -json wrangler_bindings > "$GITHUB_WORKSPACE/wrangler-bindings.json"
       - name: Install
         run: |
           bun install
@@ -60,9 +46,7 @@ jobs:
           (cd store && bun install)
           (cd store/backend && npm ci)
       - name: Apply bindings
-        run: printf '%s' "$BINDINGS_JSON" | node scripts/apply-terraform-bindings.mjs
-        env:
-          BINDINGS_JSON: ${{ needs.terraform.outputs.bindings }}
+        run: node scripts/apply-terraform-bindings.mjs < wrangler-bindings.json
       - name: Deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
