@@ -26,7 +26,7 @@
     "test:unit": "TEST_TYPE=unit NODE_OPTIONS=--experimental-vm-modules jest --silent --runInBand --forceExit"
   },
   "dependencies": {
-    "@cloudflare/containers": "^0.0.31",
+    "@cloudflare/containers": "^0.3.7",
     "@legenki/print2medusa": "^0.9.4",
     "@medusajs/admin-sdk": "2.19.0",
     "@medusajs/admin-shared": "2.19.0",
