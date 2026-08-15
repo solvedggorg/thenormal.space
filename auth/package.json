@@ -11,7 +11,7 @@
     "test": "bun test test"
   },
   "dependencies": {
-    "@clerk/backend": "^2.29.0",
+    "@clerk/backend": "^3.16.4",
     "@simplewebauthn/server": "^13.2.2",
     "hono": "^4.13.1",
     "jose": "^6.1.3"
