@@ -1,0 +1,28 @@
+---
+import AccountApp from '../components/AccountApp';
+import Layout from '../layouts/Layout.astro';
+
+export const prerender = false;
+
+const clerkKey = import.meta.env.PUBLIC_CLERK_PUBLISHABLE_KEY || '';
+const backendReady = Boolean(import.meta.env.PUBLIC_MEDUSA_PUBLISHABLE_KEY);
+---
+
+<Layout title="Account">
+	<section class="section">
+		<div class="wrap">
+			<p class="eyebrow">Account</p>
+			<div class="section-head">
+				<h1>Your shop login.</h1>
+				<p class="lede">Clerk holds the customer. Medusa gets a session after you sign in.</p>
+			</div>
+			{
+				clerkKey ? (
+					<AccountApp client:load publishableKey={clerkKey} backendReady={backendReady} />
+				) : (
+					<p class="notice">Account is not live. Set PUBLIC_CLERK_PUBLISHABLE_KEY.</p>
+				)
+			}
+		</div>
+	</section>
+</Layout>

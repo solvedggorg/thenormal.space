@@ -1,0 +1,19 @@
+{
+  "name": "thenormal-stats",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "test": "bun test",
+    "types:tail": "wrangler types --config tail/wrangler.jsonc",
+    "types:app": "wrangler types --config app/wrangler.jsonc --env-interface StatsEnv"
+  },
+  "dependencies": {
+    "hono": "^4.13.1"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.3.14",
+    "typescript": "^5.9.0",
+    "wrangler": "^4.123.0"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "thenormal-stats-tail",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-14",
+  "observability": { "enabled": true },
+  "analytics_engine_datasets": [
+    { "binding": "PAGEVIEWS", "dataset": "thenormal_pageviews" }
+  ]
+}

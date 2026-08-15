@@ -1,0 +1,361 @@
+@font-face {
+  font-family: "Sora";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/sora-600.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Figtree";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/figtree-400.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Figtree";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/figtree-500.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Figtree";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/figtree-600.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/ibm-plex-mono-400.woff2") format("woff2");
+}
+
+:root {
+  --bg: #070707;
+  --bg-wash: #111110;
+  --ink: #f2f0ea;
+  --ink-soft: #c4c1b8;
+  --muted: #8a8882;
+  --line: rgba(242, 240, 234, 0.12);
+  --line-strong: rgba(242, 240, 234, 0.22);
+  --card: #111110;
+  --invert: #f2f0ea;
+  --invert-ink: #070707;
+  --radius: 12px;
+  --radius-pill: 999px;
+  --font-display: "Sora", system-ui, sans-serif;
+  --font-body: "Figtree", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --pad: clamp(1.15rem, 3.6vw, 2.4rem);
+  --max: 1180px;
+  --header: 80px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+html {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.55;
+  letter-spacing: -0.011em;
+  background: var(--bg);
+  color: var(--ink);
+  padding-top: var(--header);
+}
+
+a {
+  color: inherit;
+  text-underline-offset: 0.18em;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.skip {
+  position: absolute;
+  left: var(--pad);
+  top: -4rem;
+  z-index: 80;
+  background: var(--invert);
+  color: var(--invert-ink);
+  padding: 0.55rem 0.85rem;
+  border-radius: var(--radius-pill);
+}
+
+.skip:focus {
+  top: 0.75rem;
+}
+
+.wrap {
+  width: min(var(--max), calc(100% - var(--pad) * 2));
+  margin-inline: auto;
+}
+
+.eyebrow {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.85rem;
+}
+
+.lede {
+  color: var(--ink-soft);
+  max-width: 38rem;
+  font-size: 1.08rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.7rem;
+  padding: 0.55rem 1.15rem;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+
+.btn-primary {
+  background: var(--invert);
+  color: var(--invert-ink);
+}
+
+.btn-ghost {
+  background: var(--bg);
+  color: var(--ink);
+  border-color: var(--line-strong);
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1.6rem;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  height: var(--header);
+}
+
+.header-bar {
+  height: 100%;
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter: saturate(1.35) blur(16px);
+}
+
+.header-inner {
+  height: 100%;
+  width: min(1280px, calc(100% - var(--pad) * 2));
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.032em;
+  text-decoration: none;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header-nav a {
+  text-decoration: none;
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+
+.header-nav a[aria-current="page"],
+.header-nav a:hover {
+  color: var(--ink);
+}
+
+.section {
+  padding: clamp(3.2rem, 8vw, 6rem) 0;
+}
+
+.section-head {
+  display: grid;
+  gap: 0.85rem;
+  margin-bottom: 2.2rem;
+  max-width: 44rem;
+}
+
+.section-head h1,
+.section-head h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.6vw, 3.4rem);
+  letter-spacing: -0.042em;
+  line-height: 1.02;
+  font-weight: 600;
+}
+
+.thing-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.thing-card,
+.cart-row {
+  display: block;
+  padding: 1.35rem 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
+  text-decoration: none;
+}
+
+.thing-card h3,
+.cart-row h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.03em;
+  margin-bottom: 0.4rem;
+}
+
+.thing-card p,
+.cart-row p {
+  color: var(--ink-soft);
+}
+
+.notice {
+  padding: 1rem 1.05rem;
+  border-radius: 12px;
+  background: var(--bg-wash);
+  margin-top: 1rem;
+}
+
+.clerk-box {
+  margin-top: 0.5rem;
+  max-width: 28rem;
+}
+
+.checkout-stack,
+.checkout-form {
+  display: grid;
+  gap: 1rem;
+  max-width: 28rem;
+}
+
+.checkout-form label {
+  display: grid;
+  gap: 0.35rem;
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+
+.checkout-form input,
+.checkout-form select {
+  min-height: 2.7rem;
+  padding: 0.55rem 0.8rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--line-strong);
+  background: var(--bg);
+  color: var(--ink);
+  font: inherit;
+}
+
+.account-panel {
+  display: grid;
+  gap: 1rem;
+  max-width: 28rem;
+}
+
+.account-user {
+  display: flex;
+  align-items: center;
+  min-height: 2.5rem;
+}
+
+.footer {
+  border-top: 1px solid var(--line);
+  padding: 2.2rem 0 3rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.footer a {
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: var(--ink);
+}
+
+@media (min-width: 760px) {
+  .thing-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

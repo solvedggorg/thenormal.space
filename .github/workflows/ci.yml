@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  secrets:
+    name: Tracked secrets
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Scan tracked files
+        run: bash scripts/check-tracked-secrets.sh
+
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: oven-sh/setup-bun@v2
+      - name: Install
+        run: |
+          bun install
+          (cd api && bun install)
+          (cd auth && bun install)
+          (cd store && bun install)
+      - name: Test
+        run: bun test src api/test store/src auth/test

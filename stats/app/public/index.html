@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#070707" />
+    <title>Stats | The Normal Space</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="preload" href="/fonts/sora-600.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/figtree-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/ibm-plex-mono-400.woff2" as="font" type="font/woff2" crossorigin />
+  </head>
+  <body>
+    <header>
+      <div class="wrap header-row">
+        <div class="brand">
+          <a href="https://thenormal.space">The Normal Space</a>
+          <p>stats</p>
+        </div>
+        <nav aria-label="Range">
+          <a href="?range=24h">24h</a>
+          <a href="?range=7d" aria-current="page">7d</a>
+          <a href="?range=30d">30d</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <p id="status" aria-live="polite"></p>
+
+      <section class="hero" aria-label="Totals">
+        <div>
+          <p class="eyebrow">Visitors</p>
+          <p id="visitors">—</p>
+        </div>
+        <div>
+          <p class="eyebrow">Pageviews</p>
+          <p id="pageviews">—</p>
+        </div>
+      </section>
+
+      <section class="chart" aria-label="Time series">
+        <svg id="series" viewBox="0 0 640 160" width="640" height="160" tabindex="0" role="img" aria-label="Visitors and pageviews">
+          <polyline id="line-visitors" fill="none" points=""></polyline>
+          <polyline id="line-pageviews" fill="none" points=""></polyline>
+        </svg>
+        <p id="series-readout">—</p>
+      </section>
+
+      <div class="cols">
+        <section>
+          <h2 class="eyebrow">Pages</h2>
+          <ol id="pages"></ol>
+        </section>
+        <section>
+          <h2 class="eyebrow">Referrers</h2>
+          <ol id="referrers"></ol>
+        </section>
+      </div>
+
+      <div class="cols">
+        <section>
+          <h2 class="eyebrow">United States</h2>
+          <div id="map"></div>
+          <ol id="states"></ol>
+        </section>
+        <section>
+          <h2 class="eyebrow">Devices</h2>
+          <ol id="devices"></ol>
+        </section>
+      </div>
+
+      <section id="blocked" aria-label="Blocked">
+        <div>
+          <p class="eyebrow">Blocked outside the US</p>
+          <p data-blocked="outsideUs">—</p>
+        </div>
+        <div>
+          <p class="eyebrow">Blocked VPN or Tor</p>
+          <p data-blocked="vpnTor">—</p>
+        </div>
+        <div>
+          <p class="eyebrow">Blocked bots</p>
+          <p data-blocked="bots">—</p>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

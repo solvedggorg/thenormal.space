@@ -1,0 +1,44 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "thenormal-auth",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-14",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true,
+    "logs": { "head_sampling_rate": 1 }
+  },
+  "routes": [
+    {
+      "pattern": "auth.thenormal.space",
+      "custom_domain": true
+    }
+  ],
+  "vars": {
+    "ISSUER": "https://auth.thenormal.space",
+    "RP_NAME": "The Normal Space",
+    "MAIL_FROM": "auth@thenormal.space",
+    "MAIL_FROM_NAME": "The Normal Space",
+    "ADMIN_ORIGIN": "https://admin2.thenormal.space",
+    "ALLOW_DCR": "false"
+  },
+  "send_email": [
+    {
+      "name": "EMAIL"
+    }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "thenormal-auth",
+      "database_id": "8ca7a0e3-9c51-4a25-97c9-b8ab3f73788c",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "KV",
+      "id": "efbd77d5dc30489ca956e5c642686e90"
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/react/Hero';
+import NotifyForm from '../components/react/NotifyForm';
+import { products } from '../data/products';
+import { films, shows } from '../data/watch';
+
+const slate = [...films, ...shows];
+const notifyFlag = Astro.url.searchParams.get('notify');
+const notifyNotice =
+	notifyFlag === 'confirmed'
+		? 'You are on the list.'
+		: notifyFlag === 'unsubscribed'
+			? 'You are off the list.'
+			: notifyFlag === 'missing'
+				? 'That link did not work.'
+				: null;
+---
+
+<Layout>
+	<Hero client:load />
+
+	<section class="section" id="things">
+		<div class="wrap">
+			<p class="eyebrow">Things</p>
+			<div class="section-head">
+				<h2>Normal things.</h2>
+			</div>
+			<div class="thing-grid">
+				{
+					products.map((item) => (
+						<a class="thing-card" href={item.href}>
+							<h3>{item.name}</h3>
+							<p>{item.sentence}</p>
+						</a>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<section class="section" id="watch">
+		<div class="wrap">
+			<div class="kicker-row">
+				<p class="eyebrow">Watch</p>
+				<a href="/watch">All of it</a>
+			</div>
+			<div class="slate-list">
+				{
+					slate.map((item) => (
+						<a class="slate-card" href="/watch">
+							<h3>{item.title}</h3>
+							<p>
+								{item.kind}. {item.logline}
+							</p>
+						</a>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<section class="section" id="notify">
+		<div class="wrap">
+			<p class="eyebrow">Notify</p>
+			<h2 class="display" style="font-size: clamp(2rem, 4.6vw, 3.4rem);">Get a note when a thing is ready.</h2>
+			{notifyNotice ? <p class="notice">{notifyNotice}</p> : null}
+			<NotifyForm client:load interest="all" />
+		</div>
+	</section>
+</Layout>

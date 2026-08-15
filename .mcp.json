@@ -1,0 +1,26 @@
+{
+  "mcpServers": {
+    "jumpcloud": {
+      "type": "http",
+      "url": "https://mcp.jumpcloud.com/v1"
+    },
+    "context7": {
+      "type": "http",
+      "url": "https://mcp.context7.com/mcp/oauth"
+    },
+    "nixos": {
+      "command": "uvx",
+      "args": [
+        "mcp-nixos"
+      ],
+      "lifecycle": "lazy"
+    },
+    "printful": {
+      "command": "mcp-printful",
+      "env": {
+        "PRINTFUL_TOKEN": "${PRINTFUL_TOKEN}"
+      },
+      "lifecycle": "lazy"
+    }
+  }
+}

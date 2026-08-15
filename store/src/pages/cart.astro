@@ -1,0 +1,61 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+export const prerender = false;
+---
+
+<Layout title="Cart">
+	<section class="section">
+		<div class="wrap">
+			<p class="eyebrow">Cart</p>
+			<div class="section-head">
+				<h1>What you picked.</h1>
+			</div>
+			<div id="cart-list" class="thing-grid"></div>
+			<p class="notice" id="cart-empty">The cart is empty.</p>
+			<div class="btn-row" id="cart-actions" hidden>
+				<a class="btn btn-primary" href="/checkout">Checkout</a>
+				<button class="btn btn-ghost" id="clear-cart" type="button">Clear</button>
+			</div>
+		</div>
+	</section>
+</Layout>
+
+<script>
+	import { clearShopCart, readShopCart } from '../lib/shop-cart';
+
+	function render() {
+		const cart = readShopCart();
+		const list = document.getElementById('cart-list');
+		const empty = document.getElementById('cart-empty');
+		const actions = document.getElementById('cart-actions');
+		if (!list || !empty || !actions) return;
+		list.replaceChildren();
+		if (!cart.length) {
+			empty.hidden = false;
+			actions.hidden = true;
+			return;
+		}
+		empty.hidden = true;
+		actions.hidden = false;
+		for (const item of cart) {
+			const row = document.createElement('div');
+			row.className = 'cart-row';
+			const title = document.createElement('h3');
+			title.textContent = item.name;
+			const qty = document.createElement('p');
+			qty.textContent = item.variant_id
+				? `${item.quantity}`
+				: `${item.quantity} · not in Medusa yet`;
+			row.append(title, qty);
+			list.append(row);
+		}
+	}
+
+	document.getElementById('clear-cart')?.addEventListener('click', () => {
+		clearShopCart();
+		render();
+	});
+
+	render();
+</script>

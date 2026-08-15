@@ -1,0 +1,1 @@
+/home/awfixer/.cache/degit/github/awfixerchurch/Sink/extract-Cs5wEo/AGENTS.md

@@ -1,0 +1,68 @@
+{
+  "name": "thenormal-space-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-14",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true
+  },
+  "routes": [
+    {
+      "pattern": "api.thenormal.space",
+      "custom_domain": true
+    }
+  ],
+  "vars": {
+    "SITE_URL": "https://thenormal.space",
+    "MAIL_FROM": "hello@thenormal.space",
+    "CONTACT_TO": "hello@thenormal.space",
+    "CONTACT_FROM": "hello@thenormal.space",
+    "MEDUSA_BACKEND_URL": "https://admin1.thenormal.space"
+  },
+  "send_email": [
+    {
+      "name": "EMAIL"
+    }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "thenormal-list",
+      "database_id": "f18271d0-407e-4826-a413-36a8c78dae08",
+      "migrations_dir": "migrations/list"
+    },
+    {
+      "binding": "SHOP_DB",
+      "database_name": "thenormal-shop",
+      "database_id": "c9226b22-1575-446c-90d5-0067c4fd85c0",
+      "migrations_dir": "migrations/shop"
+    }
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "SHOP_CACHE",
+      "id": "e326a7ae717343188a82cb5f511db263"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "MEDIA",
+      "bucket_name": "thenormal-shop-media"
+    }
+  ],
+  "queues": {
+    "producers": [
+      {
+        "binding": "SHOP_EVENTS",
+        "queue": "thenormal-shop-events"
+      }
+    ],
+    "consumers": [
+      {
+        "queue": "thenormal-shop-events",
+        "max_batch_size": 10,
+        "max_batch_timeout": 5
+      }
+    ]
+  }
+}

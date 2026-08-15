@@ -1,0 +1,15 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "thenormal-stats",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-14",
+  "observability": { "enabled": true },
+  "routes": [{ "pattern": "stats.thenormal.space", "custom_domain": true }],
+  "assets": { "directory": "./public", "binding": "ASSETS" },
+  "kv_namespaces": [{ "binding": "STATS", "id": "ae43c4fd74024b08856d4af3f05f130b" }],
+  "triggers": { "crons": ["* * * * *"] },
+  "vars": {
+    "CF_ACCOUNT_ID": "97b0dab10c55d2e8a6c952eb4e4914ac",
+    "CF_ZONE_ID": "311f1a68293f44452ef3147ec6f4ea8b"
+  }
+}

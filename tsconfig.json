@@ -1,0 +1,19 @@
+{
+  // File path, not "astro/tsconfigs/strict": rolldown walks here from store/ and cannot resolve the package name when astro is only installed in store/.
+  "extends": "./tsconfigs/astro-strict.json",
+  "include": [
+    ".astro/types.d.ts",
+    "**/*",
+    "./worker-configuration.d.ts"
+  ],
+  "exclude": [
+    "dist",
+    "store",
+    "api",
+    "store/backend"
+  ],
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "react"
+  }
+}

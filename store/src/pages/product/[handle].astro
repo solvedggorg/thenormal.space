@@ -1,0 +1,59 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { loadProduct } from '../../lib/api';
+
+export const prerender = false;
+
+const { handle } = Astro.params;
+const product = handle ? await loadProduct(handle) : undefined;
+if (!product) {
+	return Astro.rewrite('/404');
+}
+---
+
+<Layout title={product.name} description={product.sentence}>
+	<section class="section">
+		<div class="wrap">
+			<p class="eyebrow">Thing</p>
+			<div class="section-head">
+				<h1>{product.name}</h1>
+				<p class="lede">{product.paragraph}</p>
+			</div>
+			<p>No app. No wifi. No location sharing.</p>
+			<div class="btn-row">
+				<button class="btn btn-primary" data-add={product.handle} data-name={product.name} type="button">
+					Add to cart
+				</button>
+				<a class="btn btn-ghost" href="/cart">Cart</a>
+			</div>
+			<p class="notice" id="cart-note" hidden></p>
+		</div>
+	</section>
+</Layout>
+
+<script>
+	import { medusa, medusaPublishableKey } from '../../lib/medusa';
+	import { addShopCartLine } from '../../lib/shop-cart';
+
+	const button = document.querySelector<HTMLButtonElement>('[data-add]');
+	const note = document.getElementById('cart-note');
+	button?.addEventListener('click', async () => {
+		const handle = button.dataset.add;
+		const name = button.dataset.name;
+		if (!handle || !name) return;
+		let variant_id: string | undefined;
+		if (medusaPublishableKey) {
+			try {
+				const { products } = await medusa.store.product.list({ handle, limit: 1 });
+				variant_id = products?.[0]?.variants?.[0]?.id;
+			} catch {
+				variant_id = undefined;
+			}
+		}
+		addShopCartLine({ handle, name, quantity: 1, variant_id });
+		if (note) {
+			note.hidden = false;
+			note.textContent = variant_id ? 'In the cart.' : 'In the cart. This one is not in Medusa yet, so checkout cannot charge it.';
+		}
+	});
+</script>

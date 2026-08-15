@@ -1,0 +1,69 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "thenormalspace-shop-backend",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-08-14",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true
+  },
+  // Access app thenormal-shop-admin (016529f4-f623-41b0-bd17-69b08b951f58)
+  // gates /app and /admin. Cloudflare IdP, account members only.
+  "routes": [
+    {
+      "pattern": "admin1.thenormal.space",
+      "custom_domain": true
+    }
+  ],
+  "containers": [
+    {
+      "class_name": "MedusaServer",
+      "image": "./Dockerfile",
+      "instance_type": "standard-2",
+      "max_instances": 2
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "MEDUSA",
+        "class_name": "MedusaServer"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["MedusaServer"]
+    }
+  ],
+  "vars": {
+    "STORE_CORS": "https://shop.thenormal.space",
+    "ADMIN_CORS": "https://admin1.thenormal.space",
+    "AUTH_CORS": "https://shop.thenormal.space,https://admin1.thenormal.space",
+    "MEDUSA_BACKEND_URL": "https://admin1.thenormal.space",
+    "MEDUSA_WORKER_MODE": "shared",
+    "DISABLE_MEDUSA_ADMIN": "false",
+    "S3_BUCKET": "thenormal-shop-media",
+    "S3_FILE_URL": "https://media.thenormal.space",
+    "S3_ENDPOINT": "https://97b0dab10c55d2e8a6c952eb4e4914ac.r2.cloudflarestorage.com",
+    "S3_REGION": "auto",
+    "SHOP_API_URL": "https://api.thenormal.space",
+    "JUMPCLOUD_ISSUER": "https://oauth.id.jumpcloud.com",
+    "JUMPCLOUD_REDIRECT_URI": "https://admin1.thenormal.space/app/login",
+    "CLERK_ISSUER": "https://clerk.thenormal.space",
+    "CLERK_AUTHORIZED_PARTIES": "https://shop.thenormal.space,https://clerk.thenormal.space"
+  },
+  "hyperdrive": [
+    {
+      "binding": "HYPERDRIVE",
+      "id": "08f9a55fee074c01ae2df56c39bb8741"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "MEDIA",
+      "bucket_name": "thenormal-shop-media"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+---
+import '../styles/global.css';
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const marketing = (import.meta.env.PUBLIC_MARKETING_URL || 'https://thenormal.space').replace(/\/$/, '');
+const { title, description = 'Normal things. No app, no wifi, no location sharing.' } = Astro.props;
+const pageTitle = title ? `${title} | The Normal Space` : 'Shop | The Normal Space';
+const path = Astro.url.pathname;
+const canonical = new URL(path, Astro.site ?? Astro.url).toString();
+const ogImage = `${marketing}/og.png`;
+const ogImageAlt = 'Normal things for everything you want to do. No app, no wifi, no location sharing.';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<title>{pageTitle}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonical} />
+		<meta name="theme-color" content="#070707" />
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="The Normal Space" />
+		<meta property="og:title" content={pageTitle} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:image:type" content="image/png" />
+		<meta property="og:image:width" content="1338" />
+		<meta property="og:image:height" content="670" />
+		<meta property="og:image:alt" content={ogImageAlt} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:site" content="@thenormalcorp" />
+		<meta name="twitter:title" content={pageTitle} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImage} />
+		<meta name="twitter:image:alt" content={ogImageAlt} />
+		<link rel="preload" href="/fonts/sora-600.woff2" as="font" type="font/woff2" crossorigin />
+		<link rel="preload" href="/fonts/figtree-400.woff2" as="font" type="font/woff2" crossorigin />
+	</head>
+	<body>
+		<a class="skip" href="#main">Skip to content</a>
+		<header class="header">
+			<div class="header-bar">
+				<div class="header-inner">
+					<a class="brand-name" href="/">The Normal Space</a>
+					<nav class="header-nav" aria-label="Shop">
+						<a href="/" aria-current={path === '/' ? 'page' : undefined}>Shop</a>
+						<a href="/cart" aria-current={path === '/cart' ? 'page' : undefined}>Cart</a>
+						<a href="/account" aria-current={path === '/account' ? 'page' : undefined}>Account</a>
+						<a href={marketing}>The site</a>
+					</nav>
+				</div>
+			</div>
+		</header>
+		<main id="main">
+			<slot />
+		</main>
+		<footer class="footer">
+			<div class="wrap footer-inner">
+				<p>© {new Date().getFullYear()} The Normal People Society.</p>
+				<p>
+					<a href={marketing}>thenormal.space</a>
+					·
+					<a href={`${marketing}/contact`}>Contact</a>
+				</p>
+			</div>
+		</footer>
+	</body>
+</html>

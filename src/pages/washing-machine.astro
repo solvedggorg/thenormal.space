@@ -1,0 +1,27 @@
+---
+import Layout from '../layouts/Layout.astro';
+import NotifyForm from '../components/react/NotifyForm';
+import { productBySlug } from '../data/products';
+
+const product = productBySlug('washing-machine');
+if (!product) throw new Error('missing product');
+---
+
+<Layout title={product.name} description={product.sentence}>
+	<section class="page section">
+		<div class="wrap article">
+			<p class="eyebrow">Thing</p>
+			<h1 class="display" style="font-size: clamp(2.6rem, 7vw, 5.4rem);">{product.name}</h1>
+			<p class="facts">
+				<span>No app.</span>
+				<span>No wifi.</span>
+				<span>No location sharing.</span>
+			</p>
+			<p class="lede">{product.paragraph}</p>
+			<div id="notify" style="margin-top: 2.4rem;">
+				<p class="eyebrow">Notify</p>
+				<NotifyForm client:load interest={product.interest} />
+			</div>
+		</div>
+	</section>
+</Layout>

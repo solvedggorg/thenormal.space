@@ -1,0 +1,14 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ContactForm from '../components/react/ContactForm';
+---
+
+<Layout title="Contact" description="Write to The Normal People Society.">
+	<section class="page section">
+		<div class="wrap article">
+			<p class="eyebrow">Contact</p>
+			<h1 class="display" style="font-size: clamp(2.6rem, 7vw, 5.4rem);">Write to us.</h1>
+			<ContactForm client:load />
+		</div>
+	</section>
+</Layout>

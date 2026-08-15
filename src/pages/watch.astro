@@ -1,0 +1,55 @@
+---
+import Layout from '../layouts/Layout.astro';
+import NotifyForm from '../components/react/NotifyForm';
+import { films, shows } from '../data/watch';
+---
+
+<Layout title="Watch" description="Pictures under the same rule.">
+	<section class="page section">
+		<div class="wrap">
+			<p class="eyebrow">Forthcoming</p>
+			<h1 class="display" style="font-size: clamp(2.6rem, 7vw, 5.4rem); max-width: 14ch;">
+				Pictures under the same rule.
+			</h1>
+			<p class="lede" style="margin-top: 1.2rem;">We make pictures under the same rule.</p>
+		</div>
+	</section>
+
+	<section class="section" id="films">
+		<div class="wrap">
+			<p class="eyebrow">Films</p>
+			<div class="slate-list">
+				{
+					films.map((item) => (
+						<article class="slate-card">
+							<p class="eyebrow">{item.kind}</p>
+							<h2>{item.title}</h2>
+							<p>{item.logline}</p>
+							<p class="facts"><span>Forthcoming</span></p>
+						</article>
+					))
+				}
+			</div>
+			<NotifyForm client:load interest="films" />
+		</div>
+	</section>
+
+	<section class="section" id="television">
+		<div class="wrap">
+			<p class="eyebrow">Television</p>
+			<div class="slate-list">
+				{
+					shows.map((item) => (
+						<article class="slate-card">
+							<p class="eyebrow">{item.kind}</p>
+							<h2>{item.title}</h2>
+							<p>{item.logline}</p>
+							<p class="facts"><span>Forthcoming</span></p>
+						</article>
+					))
+				}
+			</div>
+			<NotifyForm client:load interest="television" />
+		</div>
+	</section>
+</Layout>

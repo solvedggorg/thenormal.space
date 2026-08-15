@@ -1,0 +1,10 @@
+{
+  // Keep this a repo-relative file. Package-name extends fail rolldown in isolated Workers Builds.
+  "extends": "../tsconfigs/astro-strict.json",
+  "include": [".astro/types.d.ts", "src/**/*", "worker-configuration.d.ts"],
+  "exclude": ["dist", "backend", "**/*.test.ts"],
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "react"
+  }
+}

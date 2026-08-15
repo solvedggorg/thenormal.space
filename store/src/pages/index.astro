@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { loadCatalog } from '../lib/api';
+
+export const prerender = false;
+
+const catalog = await loadCatalog();
+---
+
+<Layout>
+	<section class="section">
+		<div class="wrap">
+			<p class="eyebrow">Shop</p>
+			<div class="section-head">
+				<h1>The things.</h1>
+				<p class="lede">No app, no wifi, no location sharing. Price and checkout when Medusa is live.</p>
+			</div>
+			{
+				catalog.source === 'catalog' && (
+					<p class="notice">The catalog is the three things. Live inventory waits on the backend.</p>
+				)
+			}
+			<div class="thing-grid">
+				{
+					catalog.products.map((item) => (
+						<a class="thing-card" href={item.href}>
+							<h3>{item.name}</h3>
+							<p>{item.sentence}</p>
+						</a>
+					))
+				}
+			</div>
+		</div>
+	</section>
+</Layout>

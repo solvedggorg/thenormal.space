@@ -1,0 +1,37 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { brand } from '../data/site';
+---
+
+<Layout title="About" description="The Normal People Society makes normal things, and it makes pictures, under one rule.">
+	<section class="page section">
+		<div class="wrap article">
+			<p class="eyebrow">The Society</p>
+			<h1 class="display" style="font-size: clamp(2.6rem, 7vw, 5.4rem); max-width: 16ch;">
+				The Normal People Society
+			</h1>
+			<p class="lede" style="margin-top: 1.2rem;">
+				The Normal People Society makes normal things, and it makes pictures, under one rule.
+			</p>
+		</div>
+	</section>
+
+	<section class="section" id="why">
+		<div class="wrap article">
+			<p class="eyebrow">Why normal</p>
+			<p class="lede">
+				No app, no wifi, no location sharing. The thing does the job. It does not report where you are. It does not
+				need a phone.
+			</p>
+			<p class="lede" style="margin-top: 1.2rem;">
+				<a href="/goal">Goal</a>
+				{' · '}
+				<a href="/contact">Contact</a>
+				{' · '}
+				<a href="/#notify">Notify</a>
+				{' · '}
+				<a href={brand.social.x} target="_blank" rel="noreferrer">X</a>
+			</p>
+		</div>
+	</section>
+</Layout>

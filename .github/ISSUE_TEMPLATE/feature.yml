@@ -1,0 +1,30 @@
+name: Change
+description: A feature or change you want
+labels: [enhancement]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Marketing site
+        - API
+        - Auth
+        - Shop
+        - Medusa backend
+        - Links
+        - Tooling / docs
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is missing
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+    validations:
+      required: true

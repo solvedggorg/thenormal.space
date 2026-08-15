@@ -1,0 +1,46 @@
+name: Bug
+description: Something is broken
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include secrets, `.env` values, or personal data.
+        Security issues go to hello@thenormal.space — see SECURITY.md.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Marketing site
+        - API
+        - Auth
+        - Shop
+        - Medusa backend
+        - Links
+        - Tooling / docs
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What should happen
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Commit or deploy
+      placeholder: SHA or date

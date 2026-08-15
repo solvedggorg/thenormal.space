@@ -1,0 +1,78 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { brand } from '../data/site';
+
+const work = [
+	'Building',
+	'Manufacturing',
+	'Repairing',
+	'Delivering',
+	'Installing',
+] as const;
+---
+
+<Layout
+	title="Goal"
+	description="Millions of skilled American jobs. Independent contractors in American homes. Normalcy standards. No data brokers."
+>
+	<section class="page section">
+		<div class="wrap article">
+			<p class="eyebrow">Goal</p>
+			<h1 class="display" style="font-size: clamp(2.6rem, 7vw, 5.4rem); max-width: 14ch;">
+				Millions of skilled American jobs.
+			</h1>
+			<p class="lede" style="margin-top: 1.2rem;">
+				Our goal is independent, exclusively American contractors working at building, manufacturing,
+				repairing, delivering, and installing our products in American homes.
+			</p>
+			<p class="lede" style="margin-top: 1.2rem;">
+				American values. A level of care no major corporation could ever provide to you.
+			</p>
+		</div>
+	</section>
+
+	<section class="section" id="work">
+		<div class="wrap article">
+			<p class="eyebrow">The work</p>
+			<ul class="goal-work">
+				{work.map((item) => <li>{item}</li>)}
+			</ul>
+		</div>
+	</section>
+
+	<section class="section" id="standard">
+		<div class="wrap article">
+			<p class="eyebrow">The standard</p>
+			<p class="lede">
+				All while meeting our normalcy standards, and protecting you from data brokers, the ads that
+				follow them, and the security issues that come with both.
+			</p>
+			<p class="lede" style="margin-top: 1.2rem;">
+				<a href="/about#why">Why normal</a>
+				{' · '}
+				<a href="/contact">Contact</a>
+				{' · '}
+				<a href="/#notify">Notify</a>
+				{' · '}
+				<a href={brand.social.x} target="_blank" rel="noreferrer">X</a>
+			</p>
+		</div>
+	</section>
+</Layout>
+
+<style>
+	.goal-work {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		border-top: 1px solid var(--line);
+	}
+
+	.goal-work li {
+		font-family: var(--font-display);
+		font-size: clamp(1.4rem, 3.2vw, 2rem);
+		letter-spacing: -0.04em;
+		padding: 0.7rem 0;
+		border-bottom: 1px solid var(--line);
+	}
+</style>

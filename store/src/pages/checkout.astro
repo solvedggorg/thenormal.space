@@ -1,0 +1,37 @@
+---
+import CheckoutApp from '../components/CheckoutApp';
+import Layout from '../layouts/Layout.astro';
+
+export const prerender = false;
+
+const paid = Astro.url.searchParams.get('paid') === '1';
+const stripeKey = import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY || '';
+---
+
+<Layout title="Checkout">
+	<section class="section">
+		<div class="wrap">
+			<p class="eyebrow">Checkout</p>
+			<div class="section-head">
+				<h1>{paid ? 'Paid.' : 'Pay for the thing.'}</h1>
+				<p class="lede">
+					{paid
+						? 'Stripe took the card. Medusa has the order.'
+						: 'Address first, then Stripe’s payment form.'}
+				</p>
+			</div>
+			{paid ? (
+				<div class="btn-row">
+					<a class="btn btn-primary" href="/">Shop</a>
+				</div>
+			) : (
+				<CheckoutApp client:load stripePublishableKey={stripeKey} />
+			)}
+			{!paid ? (
+				<div class="btn-row">
+					<a class="btn btn-ghost" href="/cart">Back to cart</a>
+				</div>
+			) : null}
+		</div>
+	</section>
+</Layout>

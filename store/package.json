@@ -1,0 +1,36 @@
+{
+  "name": "thenormalspace-shop",
+  "private": true,
+  "type": "module",
+  "version": "0.0.1",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev --port 4322",
+    "build": "astro build && node ./scripts/point-wrangler-at-dist.mjs",
+    "preview": "astro preview",
+    "astro": "astro",
+    "types": "wrangler types --config wrangler.jsonc",
+    "deploy": "wrangler deploy --config dist/server/wrangler.json",
+    "deploy:preview": "wrangler versions upload --config dist/server/wrangler.json",
+    "test": "bun test src scripts"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "^14.2.1",
+    "@astrojs/react": "^6.0.2",
+    "@clerk/clerk-react": "^5.61.3",
+    "@medusajs/js-sdk": "^2.19.0",
+    "@stripe/react-stripe-js": "^6.8.1",
+    "@stripe/stripe-js": "^9.13.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "astro": "^7.2.2",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "wrangler": "^4.123.0"
+  }
+}

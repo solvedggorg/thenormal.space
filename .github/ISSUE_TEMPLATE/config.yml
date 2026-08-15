@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: The Normal Space
+    url: https://thenormal.space
+    about: The public site
+  - name: Security report
+    url: https://github.com/iresolvedllc/thenormal.space/security/policy
+    about: Report a vulnerability privately. Do not file a public issue.

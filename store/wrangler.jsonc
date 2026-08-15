@@ -1,0 +1,47 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "thenormalspace-shop",
+  // Vite/astro entry. After `astro build`, deploy dist/server/wrangler.json
+  // (`bun run deploy`). `--config wrangler.jsonc` cannot resolve this specifier.
+  "main": "@astrojs/cloudflare/entrypoints/server",
+  "compatibility_date": "2026-08-14",
+  "compatibility_flags": ["nodejs_compat"],
+  "routes": [
+    {
+      "pattern": "shop.thenormal.space",
+      "custom_domain": true
+    }
+  ],
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": true
+  },
+  "tail_consumers": [
+    { "service": "thenormal-stats-tail" }
+  ],
+  "observability": {
+    "enabled": true
+  },
+  "vars": {
+    "PUBLIC_API_URL": "https://api.thenormal.space",
+    "PUBLIC_MEDUSA_BACKEND_URL": "https://admin1.thenormal.space",
+    "PUBLIC_MEDUSA_PUBLISHABLE_KEY": "pk_1820d1677fe8537a8ab07e2cd4b1572f0707391260a4404d66081a7722f344a0",
+    "PUBLIC_SITE_URL": "https://shop.thenormal.space",
+    "PUBLIC_MARKETING_URL": "https://thenormal.space",
+    "PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_live_Y2xlcmsudGhlbm9ybWFsLnNwYWNlJA",
+    "PUBLIC_STRIPE_PUBLISHABLE_KEY": "pk_live_51TygaeIWyzmMy2KjqcHaSxsZ3K0gNIso15weECiSWiysJ9VE0eKkmRaTuor086DhF5MHOlhhyzWmKgqvDCElx9hd006TKbEQwg"
+  },
+  "kv_namespaces": [
+    {
+      "binding": "SHOP_CACHE",
+      "id": "e326a7ae717343188a82cb5f511db263"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "MEDIA",
+      "bucket_name": "thenormal-shop-media"
+    }
+  ]
+}

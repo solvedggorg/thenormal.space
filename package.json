@@ -1,0 +1,47 @@
+{
+  "name": "thenormal.space",
+  "private": true,
+  "type": "module",
+  "version": "0.0.1",
+  "description": "Public site and supporting services for The Normal Space",
+  "license": "MIT",
+  "author": "The Normal People Society",
+  "homepage": "https://thenormal.space",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iresolvedllc/thenormal.space.git"
+  },
+  "bugs": {
+    "url": "https://github.com/iresolvedllc/thenormal.space/issues"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "./scripts/with-node.sh dev",
+    "build": "./scripts/with-node.sh build",
+    "preview": "./scripts/with-node.sh preview",
+    "astro": "./scripts/with-node.sh",
+    "generate-types": "wrangler types",
+    "deploy": "./scripts/deploy-all.sh",
+    "deploy:dry": "./scripts/deploy-all.sh --dry-run",
+    "test": "bun test src api/test store/src store/scripts auth/test ./stats scripts",
+    "check:secrets": "bash scripts/check-tracked-secrets.sh"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@astrojs/cloudflare": "^14.2.1",
+    "@astrojs/mdx": "^7.0.5",
+    "@astrojs/react": "^6.0.2",
+    "@astrojs/ts-plugin": "^1.10.10",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "astro": "^7.2.2",
+    "lucide-react": "^1.31.0",
+    "motion": "^13.1.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "wrangler": "^4.123.0",
+    "zustand": "^5.0.15"
+  }
+}

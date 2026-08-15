@@ -1,0 +1,25 @@
+{
+  "name": "thenormal-space-auth",
+  "private": true,
+  "version": "1.0.0",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --config wrangler.jsonc --port 8788",
+    "dev:admin": "wrangler dev --config admin/wrangler.jsonc --port 8789",
+    "types": "wrangler types --config wrangler.jsonc && wrangler types --config admin/wrangler.jsonc --env-interface AdminEnv",
+    "test": "bun test test"
+  },
+  "dependencies": {
+    "@clerk/backend": "^2.29.0",
+    "@simplewebauthn/server": "^13.2.2",
+    "hono": "^4.13.1",
+    "jose": "^6.1.3"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "latest",
+    "@types/bun": "^1.3.14",
+    "typescript": "^5.9.0",
+    "wrangler": "^4.123.0"
+  }
+}
