@@ -77,5 +77,5 @@ variable "manage_r2_custom_domain" {
 variable "manage_access" {
   type        = bool
   default     = true
-  description = "Zero Trust apps for admin1/admin2."
+  description = "Zero Trust apps for admin1/admin2/admin3."
 }

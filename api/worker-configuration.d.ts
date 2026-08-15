@@ -18,5 +18,13 @@ declare namespace Cloudflare {
     MEDUSA_PUBLISHABLE_KEY: string;
     SHOP_WEBHOOK_SECRET: string;
     SHOP_MEDIA_SECRET: string;
+    ANALYTICS_DB?: D1Database;
+    SINK_CACHE?: KVNamespace;
+    SINK_RAW?: R2Bucket;
+    SINK_EVENTS?: Queue;
+    SINK?: AnalyticsEngineDataset;
+    REALTIME?: DurableObjectNamespace;
+    SINK_SALT?: string;
+    SINK_INTERNAL_SECRET?: string;
   }
 }

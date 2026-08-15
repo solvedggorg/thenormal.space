@@ -19,6 +19,15 @@ const ALLOWED = new Set([
   "GET /shop/products",
   "OPTIONS /shop/webhooks/medusa",
   "POST /shop/webhooks/medusa",
+  "OPTIONS /v1/sink/e",
+  "GET /v1/sink/e",
+  "POST /v1/sink/e",
+  "OPTIONS /v1/sink/track",
+  "POST /v1/sink/track",
+  "OPTIONS /v1/sink/batch",
+  "POST /v1/sink/batch",
+  "GET /v1/sink/t.js",
+  "GET /v1/sink/script.js",
 ]);
 
 export function isAllowlisted(method: string, pathname: string): boolean {
@@ -28,6 +37,7 @@ export function isAllowlisted(method: string, pathname: string): boolean {
     return true;
   }
   if (method.toUpperCase() === "GET" && pathname.startsWith("/shop/products/")) return true;
+  if (method.toUpperCase() === "GET" && pathname.startsWith("/v1/sink/")) return true;
   return false;
 }
 

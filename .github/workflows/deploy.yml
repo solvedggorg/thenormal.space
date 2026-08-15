@@ -1,8 +1,7 @@
 name: Deploy
 
+# Auto-deploy on push is disabled. Run this workflow manually if you want it.
 on:
-  push:
-    branches: [master]
   workflow_dispatch:
 
 permissions:
@@ -45,6 +44,7 @@ jobs:
           (cd auth && bun install)
           (cd store && bun install)
           (cd stats && bun install)
+          (cd analytics && bun install)
           (cd store/backend && npm ci)
       - name: Apply bindings
         run: node scripts/apply-terraform-bindings.mjs < wrangler-bindings.json

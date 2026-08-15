@@ -1,0 +1,65 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "account_id": "97b0dab10c55d2e8a6c952eb4e4914ac",
+  "name": "thenormal-analytics",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-14",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "workers_dev": true,
+  "preview_urls": true,
+  "observability": {
+    "enabled": true,
+    "logs": {
+      "head_sampling_rate": 1,
+      "invocation_logs": true
+    }
+  },
+  "routes": [
+    {
+      "pattern": "admin3.thenormal.space",
+      "custom_domain": true
+    }
+  ],
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS"
+  },
+  "vars": {
+    "CF_ACCOUNT_ID": "97b0dab10c55d2e8a6c952eb4e4914ac",
+    "SINK_DATASET": "thenormal_sink",
+    "SINK_ORIGIN": "https://api.thenormal.space",
+    "TEAM_DOMAIN": "https://iresolved-llc.cloudflareaccess.com",
+    "POLICY_AUD": "4ffa96850bb03a714f7d4be2b80bff6655f973e03980c8f14c0082ac2cedb1df",
+    "JUMPCLOUD_ISSUER": "https://oauth.id.jumpcloud.com",
+    "JUMPCLOUD_REDIRECT_URI": "https://admin3.thenormal.space/oidc/callback"
+  },
+  "access": {
+    "dev": {
+      "aud": "4ffa96850bb03a714f7d4be2b80bff6655f973e03980c8f14c0082ac2cedb1df",
+      "identity": {
+        "email": "dev@thenormal.space"
+      }
+    }
+  },
+  "d1_databases": [
+    {
+      "binding": "ANALYTICS_DB",
+      "database_name": "thenormal-analytics",
+      "database_id": "0c967cf3-e293-44be-b28b-be0668bc7cf2"
+    }
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "KV",
+      "id": "16c5d68a19ab426da6bbd09a9249a297"
+    }
+  ],
+  "services": [
+    {
+      "binding": "SINK_API",
+      "service": "thenormal-space-api"
+    }
+  ]
+}

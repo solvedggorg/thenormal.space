@@ -2,7 +2,7 @@
   "$schema": "../node_modules/wrangler/config-schema.json",
   "account_id": "97b0dab10c55d2e8a6c952eb4e4914ac",
   "name": "thenormal-space-api",
-  "main": "src/index.ts",
+  "main": "src/worker.ts",
   "compatibility_date": "2026-08-14",
   "compatibility_flags": [
     "nodejs_compat"
@@ -46,18 +46,52 @@
       "database_name": "thenormal-shop",
       "database_id": "7bde82eb-6eb7-4737-a56b-f22a517fcc50",
       "migrations_dir": "migrations/shop"
+    },
+    {
+      "binding": "ANALYTICS_DB",
+      "database_name": "thenormal-analytics",
+      "database_id": "0c967cf3-e293-44be-b28b-be0668bc7cf2",
+      "migrations_dir": "migrations/analytics"
     }
   ],
   "kv_namespaces": [
     {
       "binding": "SHOP_CACHE",
       "id": "1a0d477971274b47b1a4b44c48d269cd"
+    },
+    {
+      "binding": "SINK_CACHE",
+      "id": "16c5d68a19ab426da6bbd09a9249a297"
     }
   ],
   "r2_buckets": [
     {
       "binding": "MEDIA",
       "bucket_name": "thenormal-shop-media"
+    },
+    {
+      "binding": "SINK_RAW",
+      "bucket_name": "thenormal-analytics-events"
+    }
+  ],
+  "analytics_engine_datasets": [
+    {
+      "binding": "SINK",
+      "dataset": "thenormal_sink"
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "REALTIME",
+        "class_name": "Realtime"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "sink-v1",
+      "new_sqlite_classes": ["Realtime"]
     }
   ],
   "queues": {
@@ -65,12 +99,21 @@
       {
         "binding": "SHOP_EVENTS",
         "queue": "thenormal-shop-events"
+      },
+      {
+        "binding": "SINK_EVENTS",
+        "queue": "thenormal-analytics-events"
       }
     ],
     "consumers": [
       {
         "queue": "thenormal-shop-events",
         "max_batch_size": 10,
+        "max_batch_timeout": 5
+      },
+      {
+        "queue": "thenormal-analytics-events",
+        "max_batch_size": 25,
         "max_batch_timeout": 5
       }
     ]

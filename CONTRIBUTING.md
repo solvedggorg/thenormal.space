@@ -13,7 +13,7 @@ Thanks for wanting to help. Keep changes small and literal. Match the voice and 
 ```bash
 nix develop          # or: direnv allow
 bun install
-bun run dev --background
+bun run dev:all      # or: bun run dev --background for the marketing site only
 bun test
 ```
 
@@ -25,6 +25,7 @@ cp api/.dev.vars.example api/.dev.vars
 cp auth/.dev.vars.example auth/.dev.vars
 cp store/.dev.vars.example store/.dev.vars
 cp store/backend/.env.example store/backend/.env
+cp analytics/.dev.vars.example analytics/.dev.vars
 ```
 
 Fill in your own keys. Leave production values off your machine if you do not need them.
@@ -35,8 +36,9 @@ Fill in your own keys. Leave production values off your machine if you do not ne
 | --- | --- |
 | Marketing copy, routes, layout | `src/` |
 | Shared product / contact lists | `shared/` |
-| Waitlist and contact API | `api/` |
+| Waitlist, contact, and analytics sink | `api/` |
 | Sign-in, OIDC, admin auth | `auth/` |
+| First-party analytics console | `analytics/` |
 | Shop UI | `store/src/` |
 | Orders, Stripe, Printful | `store/backend/` |
 | Short links | `links/` (AGPL-3.0 — keep that license) |

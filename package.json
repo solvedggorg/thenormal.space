@@ -19,13 +19,14 @@
   },
   "scripts": {
     "dev": "./scripts/with-node.sh dev",
+    "dev:all": "bun scripts/dev-all.ts",
     "build": "./scripts/with-node.sh build",
     "preview": "./scripts/with-node.sh preview",
     "astro": "./scripts/with-node.sh",
     "generate-types": "wrangler types",
     "deploy": "./scripts/deploy-all.sh",
     "deploy:dry": "./scripts/deploy-all.sh --dry-run",
-    "test": "bun test src api/test store/src store/scripts auth/test ./stats scripts",
+    "test": "bun test src api/test store/src store/scripts auth/test ./stats ./analytics scripts",
     "check:secrets": "bash scripts/check-tracked-secrets.sh"
   },
   "dependencies": {

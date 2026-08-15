@@ -4,6 +4,7 @@ import { allowedOrigin } from "./cors";
 import { list } from "./list";
 import { applySecurityHeaders, denyNotFound, formCors, logSecurity } from "./security";
 import { shop } from "./shop";
+import { sink } from "./sink/index";
 
 type Bindings = Cloudflare.Env;
 
@@ -36,15 +37,10 @@ app.use("/contact", async (c, next) => {
 app.route("/list", list);
 app.route("/", contact);
 app.route("/", shop);
+app.route("/", sink);
 
 app.notFound((c) => denyNotFound(c));
 
 export default {
   fetch: app.fetch,
-  async queue(batch: MessageBatch<{ id: string; kind: string; createdAt: string }>) {
-    for (const message of batch.messages) {
-      console.log(JSON.stringify({ level: "info", queue: "thenormal-shop-events", body: message.body }));
-      message.ack();
-    }
-  },
 };

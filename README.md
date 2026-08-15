@@ -16,8 +16,9 @@ We make normal things. No app, no wifi, no location sharing.
 | Path | What it is |
 | --- | --- |
 | `src/` | Marketing site (Astro 7 + React, Cloudflare) |
-| `api/` | Waitlist, contact, and shop-event Worker |
+| `api/` | Waitlist, contact, shop events, and first-party analytics sink (`api.thenormal.space`) |
 | `auth/` | Clerk public IdP and JumpCloud admin (`auth.thenormal.space`, `admin2.thenormal.space`) |
+| `analytics/` | First-party analytics console (`admin3.thenormal.space`) |
 | `store/` | Shop storefront (`shop.thenormal.space`) |
 | `store/backend/` | Medusa v2 backend (`admin1.thenormal.space`) |
 | `links/` | URL shortener. Fork of [Sink](https://github.com/ccbikai/Sink), AGPL-3.0 |
@@ -37,10 +38,32 @@ nix develop
 # or: direnv allow
 ```
 
-## Quick start (marketing site)
+## Quick start
 
 ```bash
+nix develop          # or: direnv allow — real Node must win over bun-as-node
 bun install
+bun run dev:all
+```
+
+That starts the first-party stack on fixed localhost ports and writes the URL map into each package's `.dev.vars` / `.env` so they can reach each other:
+
+| Service | URL |
+| --- | --- |
+| Marketing site | http://localhost:4321 |
+| Shop | http://localhost:4322 |
+| API | http://localhost:8787 |
+| Auth | http://localhost:8788 |
+| Auth admin | http://localhost:8789 |
+| Medusa | http://localhost:9000 |
+| Stats | http://localhost:8790 |
+| Analytics | http://localhost:8791 |
+
+Medusa is skipped until `store/backend/.env` has a real `DATABASE_URL`. Links is opt-in: `bun run dev:all -- --with links`. Filter with `--only api,site` or `--skip shop-backend`. `--list` prints the map without starting anything.
+
+Site-only:
+
+```bash
 bun run dev --background
 ```
 

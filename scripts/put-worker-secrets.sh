@@ -72,6 +72,14 @@ put thenormal-auth-admin auth/admin/wrangler.jsonc JUMPCLOUD_CLIENT_SECRET
 echo "==> thenormal-stats"
 put thenormal-stats stats/app/wrangler.jsonc CF_API_TOKEN CLOUDFLARE_API_TOKEN
 
+echo "==> thenormal-analytics"
+put thenormal-analytics analytics/wrangler.jsonc CF_API_TOKEN CLOUDFLARE_API_TOKEN
+put thenormal-analytics analytics/wrangler.jsonc JUMPCLOUD_CLIENT_ID
+put thenormal-analytics analytics/wrangler.jsonc JUMPCLOUD_CLIENT_SECRET
+put thenormal-analytics analytics/wrangler.jsonc SINK_INTERNAL_SECRET
+put thenormal-space-api api/wrangler.jsonc SINK_SALT
+put thenormal-space-api api/wrangler.jsonc SINK_INTERNAL_SECRET
+
 echo "==> thenormal-shop-backend"
 if env_get DATABASE_URL >/dev/null; then
 	put thenormal-shop-backend store/backend/wrangler.jsonc DATABASE_URL

@@ -1,3 +1,10 @@
+resource "cloudflare_r2_bucket" "analytics" {
+  account_id    = var.account_id
+  name          = local.r2_analytics_bucket
+  location      = "wnam"
+  storage_class = "Standard"
+}
+
 resource "cloudflare_r2_bucket" "media" {
   account_id    = var.account_id
   name          = local.r2_media_bucket

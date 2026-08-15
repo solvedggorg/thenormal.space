@@ -32,22 +32,30 @@ locals {
       name     = "thenormal-shop-backend"
       hostname = "admin1.${var.zone_name}"
     }
+    analytics = {
+      name     = "thenormal-analytics"
+      hostname = "admin3.${var.zone_name}"
+    }
   }
 
   d1_names = {
-    auth = "thenormal-auth"
-    list = "thenormal-list"
-    shop = "thenormal-shop"
+    auth      = "thenormal-auth"
+    list      = "thenormal-list"
+    shop      = "thenormal-shop"
+    analytics = "thenormal-analytics"
   }
 
   kv_titles = {
-    auth  = "thenormal-auth"
-    shop  = "thenormal-shop-cache"
-    stats = "thenormal-stats"
+    auth      = "thenormal-auth"
+    shop      = "thenormal-shop-cache"
+    stats     = "thenormal-stats"
+    analytics = "thenormal-analytics"
   }
 
-  r2_media_bucket = "thenormal-shop-media"
-  r2_media_host   = "media.${var.zone_name}"
-  queue_name      = "thenormal-shop-events"
+  r2_media_bucket      = "thenormal-shop-media"
+  r2_media_host        = "media.${var.zone_name}"
+  r2_analytics_bucket  = "thenormal-analytics-events"
+  queue_name           = "thenormal-shop-events"
+  analytics_queue_name = "thenormal-analytics-events"
   hyperdrive_name = "thenormal-shop"
 }

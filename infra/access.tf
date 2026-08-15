@@ -19,6 +19,27 @@ resource "cloudflare_zero_trust_access_application" "auth_admin" {
   }]
 }
 
+resource "cloudflare_zero_trust_access_application" "analytics" {
+  count            = var.manage_access ? 1 : 0
+  account_id       = var.account_id
+  name             = "thenormal-analytics"
+  domain           = local.workers.analytics.hostname
+  type             = "self_hosted"
+  session_duration = "24h"
+  allowed_idps     = [var.access_idp_id]
+
+  policies = [{
+    name       = "JumpCloud"
+    decision   = "allow"
+    precedence = 1
+    include = [{
+      login_method = {
+        id = var.access_idp_id
+      }
+    }]
+  }]
+}
+
 resource "cloudflare_zero_trust_access_application" "shop_admin" {
   count            = var.manage_access ? 1 : 0
   account_id       = var.account_id

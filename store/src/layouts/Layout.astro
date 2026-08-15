@@ -7,6 +7,7 @@ interface Props {
 }
 
 const marketing = (import.meta.env.PUBLIC_MARKETING_URL || 'https://thenormal.space').replace(/\/$/, '');
+const sink = (import.meta.env.PUBLIC_API_URL || (import.meta.env.DEV ? '' : 'https://api.thenormal.space')).replace(/\/$/, '');
 const { title, description = 'Normal things. No app, no wifi, no location sharing.' } = Astro.props;
 const pageTitle = title ? `${title} | The Normal Space` : 'Shop | The Normal Space';
 const path = Astro.url.pathname;
@@ -44,6 +45,7 @@ const ogImageAlt = 'Normal things for everything you want to do. No app, no wifi
 		<meta name="twitter:image:alt" content={ogImageAlt} />
 		<link rel="preload" href="/fonts/sora-600.woff2" as="font" type="font/woff2" crossorigin />
 		<link rel="preload" href="/fonts/figtree-400.woff2" as="font" type="font/woff2" crossorigin />
+		{sink && <script src={`${sink}/v1/sink/script.js`} defer data-site-id="shop"></script>}
 	</head>
 	<body>
 		<a class="skip" href="#main">Skip to content</a>

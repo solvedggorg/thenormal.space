@@ -32,6 +32,7 @@ test("lists first-party workers in deploy order", async () => {
 		"site",
 		"shop",
 		"stats",
+		"analytics",
 	]);
 	expect(stdout).toContain("stats/tail/wrangler.jsonc");
 	expect(stdout).toContain("auth/admin/wrangler.jsonc");

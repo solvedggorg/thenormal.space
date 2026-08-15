@@ -39,21 +39,36 @@ const b = parsed.value ?? parsed;
 const d1Auth = requireVal(b, "d1_auth_id");
 const d1List = requireVal(b, "d1_list_id");
 const d1Shop = requireVal(b, "d1_shop_id");
+const d1Analytics = requireVal(b, "d1_analytics_id");
 const kvAuth = requireVal(b, "kv_auth_id");
 const kvShop = requireVal(b, "kv_shop_id");
 const kvStats = requireVal(b, "kv_stats_id");
+const kvAnalytics = requireVal(b, "kv_analytics_id");
 const r2Media = requireVal(b, "r2_media");
+const r2Analytics = requireVal(b, "r2_analytics");
 const queueName = requireVal(b, "queue_name");
+const analyticsQueue = requireVal(b, "analytics_queue_name");
 const accountId = requireVal(b, "account_id");
 const zoneId = requireVal(b, "zone_id");
 
+function bind(list, name) {
+  return (list || []).find((item) => item.binding === name || item.name === name);
+}
+
 patch("api/wrangler.jsonc", (cfg) => {
-  cfg.d1_databases[0].database_id = d1List;
-  cfg.d1_databases[1].database_id = d1Shop;
-  cfg.kv_namespaces[0].id = kvShop;
-  cfg.r2_buckets[0].bucket_name = r2Media;
-  cfg.queues.producers[0].queue = queueName;
-  cfg.queues.consumers[0].queue = queueName;
+  bind(cfg.d1_databases, "DB").database_id = d1List;
+  bind(cfg.d1_databases, "SHOP_DB").database_id = d1Shop;
+  bind(cfg.d1_databases, "ANALYTICS_DB").database_id = d1Analytics;
+  bind(cfg.kv_namespaces, "SHOP_CACHE").id = kvShop;
+  bind(cfg.kv_namespaces, "SINK_CACHE").id = kvAnalytics;
+  bind(cfg.r2_buckets, "MEDIA").bucket_name = r2Media;
+  bind(cfg.r2_buckets, "SINK_RAW").bucket_name = r2Analytics;
+  bind(cfg.queues.producers, "SHOP_EVENTS").queue = queueName;
+  bind(cfg.queues.producers, "SINK_EVENTS").queue = analyticsQueue;
+  const shopConsumer = (cfg.queues.consumers || []).find((item) => item.queue.includes("shop"));
+  const sinkConsumer = (cfg.queues.consumers || []).find((item) => item.queue.includes("analytics"));
+  if (shopConsumer) shopConsumer.queue = queueName;
+  if (sinkConsumer) sinkConsumer.queue = analyticsQueue;
 });
 
 patch("auth/wrangler.jsonc", (cfg) => {
@@ -87,4 +102,15 @@ patch("store/backend/wrangler.jsonc", (cfg) => {
   cfg.r2_buckets[0].bucket_name = r2Media;
   cfg.vars.S3_BUCKET = r2Media;
   cfg.vars.S3_ENDPOINT = `https://${accountId}.r2.cloudflarestorage.com`;
+});
+
+patch("analytics/wrangler.jsonc", (cfg) => {
+  bind(cfg.d1_databases, "ANALYTICS_DB").database_id = d1Analytics;
+  bind(cfg.kv_namespaces, "KV").id = kvAnalytics;
+  cfg.vars.CF_ACCOUNT_ID = accountId;
+  if (b.analytics_policy_aud) {
+    cfg.vars.POLICY_AUD = b.analytics_policy_aud;
+    if (cfg.access?.dev) cfg.access.dev.aud = b.analytics_policy_aud;
+  }
+  if (b.team_domain) cfg.vars.TEAM_DOMAIN = b.team_domain;
 });

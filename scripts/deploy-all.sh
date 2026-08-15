@@ -26,6 +26,7 @@ register_workers() {
 	worker site . --build "./scripts/with-node.sh build"
 	worker shop store --build "bun run build" --deploy "npx wrangler deploy --config dist/server/wrangler.json"
 	worker stats stats/app
+	worker analytics analytics
 	# Optional AGPL fork — different pipeline (pnpm + generated wrangler.deploy.jsonc):
 	# worker links links --build "pnpm build" --deploy "pnpm deploy:worker"
 }

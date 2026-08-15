@@ -20,6 +20,7 @@ script and container deploys. Do not create the same Worker from both.
 | `thenormal-stats-tail` | `stats/tail/` | (tail consumer only) |
 | `thenormal-shop` | `store/` | `shop.thenormal.space` |
 | `thenormal-shop-backend` | `store/backend/` | `admin1.thenormal.space` |
+| `thenormal-analytics` | `analytics/` | `admin3.thenormal.space` (Access + JumpCloud) |
 
 `thenormal-shop-backend` builds `store/backend/Dockerfile` into a Cloudflare
 Container (`MedusaServer`, instance type `standard-2`).
