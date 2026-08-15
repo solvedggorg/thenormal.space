@@ -1,0 +1,9 @@
+# Copy to terraform.tfvars (gitignored) or export TF_VAR_* in CI.
+# account_id and zone_id already have the production defaults.
+
+# Required to create Hyperdrive:
+# hyperdrive_origin_password = "neon-role-password"
+
+# manage_hyperdrive        = true
+# manage_r2_custom_domain  = true
+# manage_access            = true

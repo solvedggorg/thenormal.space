@@ -9,11 +9,15 @@
   outputs = { nixpkgs, flake-utils, ... }:
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = nixpkgs.legacyPackages.${system};
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [ "terraform" ];
+        };
       in {
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             nodejs_22
+            terraform
           ];
 
           shellHook = ''

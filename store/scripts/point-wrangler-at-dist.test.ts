@@ -22,7 +22,7 @@ function fixture() {
     join(root, "wrangler.jsonc"),
     `{
   // virtual entry used by astro/vite
-  "name": "thenormalspace-shop",
+  "name": "thenormal-shop",
   "main": "@astrojs/cloudflare/entrypoints/server",
   "assets": {
     "directory": "./dist",

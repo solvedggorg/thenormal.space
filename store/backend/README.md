@@ -1,4 +1,4 @@
-# thenormalspace-shop-backend
+# thenormal-shop-backend
 
 Medusa v2.19 for `admin1.thenormal.space`. The Worker in `worker/` proxies to a Cloudflare Container that runs this app.
 

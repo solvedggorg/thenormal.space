@@ -1,9 +1,18 @@
 {
 	"$schema": "./node_modules/wrangler/config-schema.json",
+	"account_id": "97b0dab10c55d2e8a6c952eb4e4914ac",
 	"compatibility_date": "2026-08-14",
 	"compatibility_flags": ["global_fetch_strictly_public"],
 	"name": "thenormal-space",
 	"main": "src/cloudflare-worker.ts",
+	"workers_dev": true,
+	"preview_urls": true,
+	"routes": [
+		{
+			"pattern": "thenormal.space",
+			"custom_domain": true
+		}
+	],
 	"assets": {
 		"directory": "./dist/client",
 		"binding": "ASSETS",
@@ -13,6 +22,7 @@
 		{ "service": "thenormal-stats-tail" }
 	],
 	"observability": {
-		"enabled": true
+		"enabled": true,
+		"logs": { "head_sampling_rate": 1, "invocation_logs": true }
 	}
 }

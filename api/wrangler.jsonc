@@ -1,10 +1,20 @@
 {
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "account_id": "97b0dab10c55d2e8a6c952eb4e4914ac",
   "name": "thenormal-space-api",
   "main": "src/index.ts",
   "compatibility_date": "2026-08-14",
-  "compatibility_flags": ["nodejs_compat"],
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "workers_dev": true,
+  "preview_urls": true,
   "observability": {
-    "enabled": true
+    "enabled": true,
+    "logs": {
+      "head_sampling_rate": 1,
+      "invocation_logs": true
+    }
   },
   "routes": [
     {
@@ -28,20 +38,20 @@
     {
       "binding": "DB",
       "database_name": "thenormal-list",
-      "database_id": "f18271d0-407e-4826-a413-36a8c78dae08",
+      "database_id": "98408476-4eb9-42af-bed6-dce7095041fb",
       "migrations_dir": "migrations/list"
     },
     {
       "binding": "SHOP_DB",
       "database_name": "thenormal-shop",
-      "database_id": "c9226b22-1575-446c-90d5-0067c4fd85c0",
+      "database_id": "7bde82eb-6eb7-4737-a56b-f22a517fcc50",
       "migrations_dir": "migrations/shop"
     }
   ],
   "kv_namespaces": [
     {
       "binding": "SHOP_CACHE",
-      "id": "e326a7ae717343188a82cb5f511db263"
+      "id": "1a0d477971274b47b1a4b44c48d269cd"
     }
   ],
   "r2_buckets": [

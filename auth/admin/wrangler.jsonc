@@ -1,15 +1,21 @@
 {
   "$schema": "../../node_modules/wrangler/config-schema.json",
+  "account_id": "97b0dab10c55d2e8a6c952eb4e4914ac",
   "name": "thenormal-auth-admin",
   "main": "src/index.ts",
   "compatibility_date": "2026-08-14",
-  "compatibility_flags": ["nodejs_compat"],
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "workers_dev": true,
+  "preview_urls": true,
   "observability": {
     "enabled": true,
-    "logs": { "head_sampling_rate": 1 }
+    "logs": {
+      "head_sampling_rate": 1,
+      "invocation_logs": true
+    }
   },
-  // Access app thenormal-auth-admin (74716ad6-736d-4a30-b715-afc3c904d3b5)
-  // Same policy as thenormal-shop-admin: Cloudflare IdP, account members only.
   "routes": [
     {
       "pattern": "admin2.thenormal.space",
@@ -21,15 +27,17 @@
     "MAIL_FROM": "auth@thenormal.space",
     "MAIL_FROM_NAME": "The Normal Space",
     "TEAM_DOMAIN": "https://iresolved-llc.cloudflareaccess.com",
-    "POLICY_AUD": "0f92ae489e149699ab84a95de2f574e1ed778ffe94c3c2b9e041b95c14ca4860",
+    "POLICY_AUD": "bb695646933b69bf9d184b2a02cec84d1846636cd9d2678755e099e4a7d74bbe",
     "RP_NAME": "The Normal Space",
     "JUMPCLOUD_ISSUER": "https://oauth.id.jumpcloud.com",
     "JUMPCLOUD_REDIRECT_URI": "https://admin2.thenormal.space/oidc/callback"
   },
   "access": {
     "dev": {
-      "aud": "0f92ae489e149699ab84a95de2f574e1ed778ffe94c3c2b9e041b95c14ca4860",
-      "identity": { "email": "dev@thenormal.space" }
+      "aud": "bb695646933b69bf9d184b2a02cec84d1846636cd9d2678755e099e4a7d74bbe",
+      "identity": {
+        "email": "dev@thenormal.space"
+      }
     }
   },
   "send_email": [
@@ -41,14 +49,14 @@
     {
       "binding": "DB",
       "database_name": "thenormal-auth",
-      "database_id": "8ca7a0e3-9c51-4a25-97c9-b8ab3f73788c",
+      "database_id": "db1e8933-c9e7-472a-aab8-d04e16a37d5c",
       "migrations_dir": "../migrations"
     }
   ],
   "kv_namespaces": [
     {
       "binding": "KV",
-      "id": "efbd77d5dc30489ca956e5c642686e90"
+      "id": "138a985967e14d52aeaafd053c0cb131"
     }
   ]
 }

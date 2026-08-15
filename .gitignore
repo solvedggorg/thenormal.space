@@ -39,5 +39,16 @@ pnpm-debug.log*
 # wrangler / miniflare local state
 .wrangler/
 
+# terraform
+**/.terraform/
+**/*.tfstate
+**/*.tfstate.*
+**/*.tfvars
+!**/*.tfvars.example
+infra/generated/
+
+# D1 dumps may contain PII — keep local only
+docs/ops/backups/
+
 # direnv
 .direnv/

@@ -9,10 +9,10 @@
   "homepage": "https://thenormal.space",
   "repository": {
     "type": "git",
-    "url": "https://github.com/iresolvedllc/thenormal.space.git"
+    "url": "https://github.com/solvedggorg/thenormal.space.git"
   },
   "bugs": {
-    "url": "https://github.com/iresolvedllc/thenormal.space/issues"
+    "url": "https://github.com/solvedggorg/thenormal.space/issues"
   },
   "engines": {
     "node": ">=22.12.0"

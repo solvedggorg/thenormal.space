@@ -1,11 +1,14 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "thenormalspace-shop",
-  // Vite/astro entry. After `astro build`, deploy dist/server/wrangler.json
-  // (`bun run deploy`). `--config wrangler.jsonc` cannot resolve this specifier.
+  "account_id": "97b0dab10c55d2e8a6c952eb4e4914ac",
+  "name": "thenormal-shop",
+  "workers_dev": true,
+  "preview_urls": true,
   "main": "@astrojs/cloudflare/entrypoints/server",
   "compatibility_date": "2026-08-14",
-  "compatibility_flags": ["nodejs_compat"],
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
   "routes": [
     {
       "pattern": "shop.thenormal.space",
@@ -18,10 +21,16 @@
     "run_worker_first": true
   },
   "tail_consumers": [
-    { "service": "thenormal-stats-tail" }
+    {
+      "service": "thenormal-stats-tail"
+    }
   ],
   "observability": {
-    "enabled": true
+    "enabled": true,
+    "logs": {
+      "head_sampling_rate": 1,
+      "invocation_logs": true
+    }
   },
   "vars": {
     "PUBLIC_API_URL": "https://api.thenormal.space",
@@ -35,7 +44,7 @@
   "kv_namespaces": [
     {
       "binding": "SHOP_CACHE",
-      "id": "e326a7ae717343188a82cb5f511db263"
+      "id": "1a0d477971274b47b1a4b44c48d269cd"
     }
   ],
   "r2_buckets": [

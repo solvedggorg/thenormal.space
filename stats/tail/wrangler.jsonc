@@ -1,9 +1,11 @@
 {
   "$schema": "../../node_modules/wrangler/config-schema.json",
+  "account_id": "97b0dab10c55d2e8a6c952eb4e4914ac",
   "name": "thenormal-stats-tail",
   "main": "src/index.ts",
   "compatibility_date": "2026-08-14",
-  "observability": { "enabled": true },
+  "workers_dev": false,
+  "observability": { "enabled": true, "logs": { "head_sampling_rate": 1, "invocation_logs": true } },
   "analytics_engine_datasets": [
     { "binding": "PAGEVIEWS", "dataset": "thenormal_pageviews" }
   ]

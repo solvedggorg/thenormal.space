@@ -1,12 +1,20 @@
 {
   "$schema": "../node_modules/wrangler/config-schema.json",
+  "account_id": "97b0dab10c55d2e8a6c952eb4e4914ac",
   "name": "thenormal-auth",
   "main": "src/index.ts",
   "compatibility_date": "2026-08-14",
-  "compatibility_flags": ["nodejs_compat"],
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "workers_dev": true,
+  "preview_urls": true,
   "observability": {
     "enabled": true,
-    "logs": { "head_sampling_rate": 1 }
+    "logs": {
+      "head_sampling_rate": 1,
+      "invocation_logs": true
+    }
   },
   "routes": [
     {
@@ -31,14 +39,14 @@
     {
       "binding": "DB",
       "database_name": "thenormal-auth",
-      "database_id": "8ca7a0e3-9c51-4a25-97c9-b8ab3f73788c",
+      "database_id": "db1e8933-c9e7-472a-aab8-d04e16a37d5c",
       "migrations_dir": "migrations"
     }
   ],
   "kv_namespaces": [
     {
       "binding": "KV",
-      "id": "efbd77d5dc30489ca956e5c642686e90"
+      "id": "138a985967e14d52aeaafd053c0cb131"
     }
   ]
 }

@@ -1,0 +1,7 @@
+# Backend is declared in versions.tf (R2 bucket thenormal-tfstate).
+# Terraform needs these env vars:
+#
+#   AWS_ACCESS_KEY_ID      R2 access key
+#   AWS_SECRET_ACCESS_KEY  R2 secret
+#   CLOUDFLARE_API_TOKEN   account token
+#   TF_VAR_hyperdrive_origin_password  Neon password (create only)

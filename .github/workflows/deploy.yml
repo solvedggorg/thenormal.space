@@ -1,0 +1,76 @@
+name: Deploy
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-master
+  cancel-in-progress: false
+
+jobs:
+  terraform:
+    name: Terraform
+    runs-on: ubuntu-latest
+    outputs:
+      bindings: ${{ steps.out.outputs.bindings }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.11.4"
+          terraform_wrapper: false
+      - name: Apply
+        working-directory: infra
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          TF_VAR_hyperdrive_origin_password: ${{ secrets.TF_VAR_HYPERDRIVE_ORIGIN_PASSWORD }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          terraform init -input=false
+          terraform apply -input=false -auto-approve
+      - id: out
+        name: Bindings
+        working-directory: infra
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          {
+            echo "bindings<<EOF"
+            terraform output -json wrangler_bindings
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+  workers:
+    name: Workers and container
+    needs: terraform
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: oven-sh/setup-bun@v2
+      - name: Install
+        run: |
+          bun install
+          (cd api && bun install)
+          (cd auth && bun install)
+          (cd store && bun install)
+          (cd store/backend && npm ci)
+      - name: Apply bindings
+        run: printf '%s' "$BINDINGS_JSON" | node scripts/apply-terraform-bindings.mjs
+        env:
+          BINDINGS_JSON: ${{ needs.terraform.outputs.bindings }}
+      - name: Deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CI: "true"
+        run: bash scripts/deploy-all.sh
