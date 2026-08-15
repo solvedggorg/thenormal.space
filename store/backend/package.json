@@ -58,7 +58,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5.6.2",
+    "typescript": "^7.0.2",
     "vite": "^7.3.6",
     "wrangler": "^4.123.0",
     "yalc": "^1.0.0-pre.53"
