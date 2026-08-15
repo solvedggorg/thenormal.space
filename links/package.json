@@ -83,7 +83,7 @@
     "pinia": "^3.0.4",
     "qr-code-styling": "^1.9.2",
     "reka-ui": "^2.10.1",
-    "shadcn-nuxt": "^2.7.4",
+    "shadcn-nuxt": "^2.8.2",
     "shadcn-vue": "^2.7.4",
     "simple-git-hooks": "^2.13.1",
     "tailwind-merge": "^3.6.0",
