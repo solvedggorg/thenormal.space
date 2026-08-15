@@ -101,7 +101,7 @@
     "vitest": "^4.1.10",
     "vue-input-otp": "^0.3.2",
     "vue-sonner": "^2.0.9",
-    "vue-tsc": "^3.3.7",
+    "vue-tsc": "^3.3.9",
     "vue3-simple-icons": "^16.10.0",
     "wrangler": "^4.110.0",
     "zod": "^4.4.3"
