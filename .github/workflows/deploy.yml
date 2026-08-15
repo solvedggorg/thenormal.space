@@ -44,6 +44,7 @@ jobs:
           (cd api && bun install)
           (cd auth && bun install)
           (cd store && bun install)
+          (cd stats && bun install)
           (cd store/backend && npm ci)
       - name: Apply bindings
         run: node scripts/apply-terraform-bindings.mjs < wrangler-bindings.json
