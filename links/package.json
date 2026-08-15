@@ -82,7 +82,7 @@
     "nuxt": "^4.4.8",
     "pinia": "^3.0.4",
     "qr-code-styling": "^1.9.2",
-    "reka-ui": "^2.10.1",
+    "reka-ui": "^2.10.3",
     "shadcn-nuxt": "^2.7.4",
     "shadcn-vue": "^2.7.4",
     "simple-git-hooks": "^2.13.1",
